@@ -1,0 +1,10 @@
+root:
+  level: info
+  appenders:
+    - stdout
+
+appenders:
+  stdout:
+    kind: console
+    encoder:
+      pattern: "{d(%Y-%m-%d %H:%M:%S.%f)}|{l}|{X(request_id)(default)}|{M} - {m}{n}"
