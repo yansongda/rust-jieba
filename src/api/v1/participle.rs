@@ -6,7 +6,7 @@ use crate::result::{Error, Response};
 
 #[get("/do")]
 pub async fn index(query: web::Query<Query>, jieba: web::Data<Jieba>) -> impl Responder {
-    let text = query.text.as_ref().map_or_else(|| String::from(""), |t| String::from(t));
+    let text = query.text.as_ref().map_or_else(|| "", |t| &t[..]);
 
     if text.is_empty() {
         return Err(Error::ParamsError);
@@ -15,7 +15,7 @@ pub async fn index(query: web::Query<Query>, jieba: web::Data<Jieba>) -> impl Re
     let words = jieba.cut(&text[..], false);
 
     Ok(Response::success(Participle {
-        words: words.iter().map(|v| String::from(v.clone())).collect(),
-        text,
+        words: words.iter().map(|v| String::from(v.to_owned())).collect(),
+        text: text.to_owned(),
     }))
 }
