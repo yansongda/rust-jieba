@@ -1,4 +1,4 @@
-use actix_web::{get, Responder, web};
+use actix_web::{get, web, Responder};
 use jieba_rs::Jieba;
 
 use crate::model::participle::{Participle, Query};
@@ -6,10 +6,10 @@ use crate::result::{Error, Response};
 
 #[get("/do")]
 pub async fn index(query: web::Query<Query>, jieba: web::Data<Jieba>) -> impl Responder {
-    let text = query.text.as_ref().map_or_else(|| "", |t| &t[..]);
+    let text = query.text.clone();
 
     if text.is_empty() {
-        return Err(Error::ParamsError);
+        return Err(Error::EmptyParams);
     }
 
     let words = jieba.cut(&text[..], false);

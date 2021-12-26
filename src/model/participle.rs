@@ -1,12 +1,12 @@
-use serde::{Serialize, Deserialize};
+use serde::{Deserialize, Serialize};
 
 #[derive(Serialize, Deserialize)]
 pub struct Query {
-    pub text: Option<String>,
+    pub text: String,
 }
 
 #[derive(Serialize, Deserialize)]
 pub struct Participle {
     pub text: String,
-    pub words: Vec<String>
+    pub words: Vec<String>,
 }

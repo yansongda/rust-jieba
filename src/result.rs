@@ -10,9 +10,12 @@ lazy_static! {
         (Error::UnknownError, (9999, "未知错误，请联系管理员")),
         // 参数错误
         (Error::ParamsError, (2000, "参数错误，请确认您的参数是否符合规范")),
+        // 必要参数不存在
+        (Error::MissingParams, (2001, "必要参数不存在，请确认您的参数是否符合规范")),
+        // 参数值为空
+        (Error::EmptyParams, (2002, "参数值为空，请确认您的参数是否符合规范")),
     ]);
 }
-
 
 #[derive(Serialize, Deserialize)]
 pub struct Response<D: Serialize> {
@@ -25,6 +28,8 @@ pub struct Response<D: Serialize> {
 pub enum Error {
     UnknownError,
     ParamsError,
+    MissingParams,
+    EmptyParams,
 }
 
 impl<D: Serialize> Response<D> {

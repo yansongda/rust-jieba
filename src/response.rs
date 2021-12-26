@@ -1,11 +1,11 @@
-use std::future::{Ready, ready};
+use std::future::{ready, Ready};
 
-use actix_web::{HttpRequest, HttpResponse, Responder, ResponseError};
 use actix_web::dev::HttpResponseBuilder;
 use actix_web::http::{header, StatusCode};
+use actix_web::{HttpRequest, HttpResponse, Responder, ResponseError};
 use serde::Serialize;
 
-use crate::result::{Error, ERROR_CODE_MESSAGE, Response};
+use crate::result::{Error, Response, ERROR_CODE_MESSAGE};
 
 impl<D: Serialize> Responder for Response<D> {
     type Error = Error;
@@ -24,8 +24,14 @@ impl ResponseError for Error {
     }
 
     fn error_response(&self) -> HttpResponse {
-        let (code, message) = ERROR_CODE_MESSAGE.get(self).unwrap_or_else(|| ERROR_CODE_MESSAGE.get(&Error::UnknownError).unwrap());
-        let response: Response<String> = Response { code: *code, message: message.to_string(), data: None };
+        let (code, message) = ERROR_CODE_MESSAGE
+            .get(self)
+            .unwrap_or_else(|| ERROR_CODE_MESSAGE.get(&Error::UnknownError).unwrap());
+        let response: Response<String> = Response {
+            code: *code,
+            message: message.to_string(),
+            data: None,
+        };
 
         HttpResponseBuilder::new(self.status_code())
             .set_header(header::CONTENT_TYPE, "application/json; charset=utf-8")
