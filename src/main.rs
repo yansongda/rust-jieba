@@ -9,6 +9,7 @@ mod model;
 mod config;
 mod result;
 mod response;
+mod middleware;
 
 #[actix_web::main]
 async fn main() -> std::io::Result<()> {

@@ -12,3 +12,4 @@ serde_json = { version = "~1.0.71" }
 lazy_static = { version = "~1.4.0" }
 actix-web = { version = "~3.3.0" }
 jieba-rs = { version = "~0.6.6" }
+uuid = { version = "0.8", features = ["serde", "v5"] }
