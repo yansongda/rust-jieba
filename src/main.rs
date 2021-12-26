@@ -1,7 +1,8 @@
 use crate::config::actix::Actix;
+use crate::config::jieba::JieBa;
 use actix_web::middleware::Logger;
 use actix_web::{App, HttpServer};
-use jieba_rs::Jieba;
+use dotenv::dotenv;
 
 mod api;
 mod config;
@@ -14,13 +15,14 @@ mod route;
 
 #[actix_web::main]
 async fn main() -> std::io::Result<()> {
+    dotenv().ok();
     log4rs::init_file("log4rs.yml", Default::default()).unwrap();
 
     HttpServer::new(|| {
         App::new()
             .wrap(Logger::default())
             .app_data(Actix::query_config())
-            .data(Jieba::new())
+            .data(JieBa::init())
             .configure(route::health)
             .configure(route::api_v1)
     })
