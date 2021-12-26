@@ -15,5 +15,6 @@ WORKDIR /www
 
 COPY --from=builder /www/target/release/rust-jieba ./app
 COPY --from=builder /www/log4rs.yml ./
+COPY --from=builder /etc/apt/sources.list /etc/apt/sources.list
 
 CMD ["/www/app"]
