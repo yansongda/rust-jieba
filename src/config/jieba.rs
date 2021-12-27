@@ -22,7 +22,7 @@ fn load_frequency_words(j: &mut Jieba) -> () {
     }
 
     for x in suggests.unwrap().split(";") {
-        info!("load_frequency_words: add_word");
+        info!("加载自定义分词词语: {}", x);
         j.add_word(x, None, None);
     }
 }
