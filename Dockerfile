@@ -12,9 +12,12 @@ RUN update-ca-certificates \
 FROM debian:bullseye-slim
 
 WORKDIR /www
+ENV TZ=Asia/Shanghai
 
 COPY --from=builder /www/target/release/rust-jieba ./app
 COPY --from=builder /www/log4rs.yml ./
 COPY --from=builder /etc/apt/sources.list /etc/apt/sources.list
+
+RUN ln -snf /usr/share/zoneinfo/$TZ /etc/localtime && echo $TZ > /etc/timezone
 
 CMD ["/www/app"]
