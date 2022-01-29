@@ -1,5 +1,4 @@
 use jieba_rs::Jieba;
-use log::info;
 use std::env;
 
 pub struct JieBa;
@@ -15,6 +14,8 @@ impl JieBa {
 }
 
 fn load_frequency_words(j: &mut Jieba) -> () {
+    tracing::info!("准备加载自定义分词词语");
+
     let suggests = env::var("JIEBA_FIXED");
 
     if suggests.is_err() {
@@ -22,7 +23,7 @@ fn load_frequency_words(j: &mut Jieba) -> () {
     }
 
     for x in suggests.unwrap().split(";") {
-        info!("加载自定义分词词语: {}", x);
+        tracing::info!("加载自定义分词词语: {}", x);
         j.add_word(x, None, None);
     }
 }
