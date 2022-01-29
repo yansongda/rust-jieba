@@ -18,12 +18,12 @@ mod route;
 async fn main() -> std::io::Result<()> {
     let config = Config::init();
 
-    Logger::init(&config);
+    Logger::init(config.logger);
 
     HttpServer::new(|| {
         App::new()
             .app_data(Actix::query_config())
-            .data(JieBa::init())
+            .data(JieBa::init(config.jieba))
             .configure(route::health)
             .configure(route::api_v1)
     })

@@ -5,6 +5,7 @@ use dotenv::dotenv;
 pub struct Config {
     pub app: AppConfig,
     pub logger: LoggerConfig,
+    pub jieba: JiebaConfig,
 }
 
 pub struct AppConfig {
@@ -14,7 +15,13 @@ pub struct AppConfig {
 }
 
 pub struct LoggerConfig {
+    pub name: String,
     pub level: String,
+}
+
+#[derive(Copy)]
+pub struct JiebaConfig {
+    pub fixed: String,
 }
 
 impl Config {
@@ -24,6 +31,7 @@ impl Config {
         Config {
             app: AppConfig::default(),
             logger: LoggerConfig::default(),
+            jieba: JiebaConfig::default(),
         }
     }
 }
@@ -41,7 +49,16 @@ impl Default for AppConfig {
 impl Default for LoggerConfig {
     fn default() -> Self {
         LoggerConfig {
+            name: env::var("LOGGER_NAME").unwrap_or_else(|_| String::from("jieba")),
             level: env::var("LOGGER_LEVEL").unwrap_or_else(|_| String::from("info")),
+        }
+    }
+}
+
+impl Default for JiebaConfig {
+    fn default() -> Self {
+        JiebaConfig {
+            fixed: env::var("JIEBA_FIXED").unwrap_or_else(|_| String::from("")),
         }
     }
 }
