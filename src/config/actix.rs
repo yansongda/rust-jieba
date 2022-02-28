@@ -1,6 +1,6 @@
 use crate::result::Error;
 use actix_web::web;
-use actix_web::web::QueryConfig;
+use actix_web::web::{JsonConfig, QueryConfig};
 
 pub struct Actix;
 

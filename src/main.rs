@@ -1,7 +1,7 @@
 use crate::config::actix::Actix;
 use crate::config::jieba::JieBa;
 use actix_web::middleware::Logger;
-use actix_web::{App, HttpServer};
+use actix_web::{App, HttpServer, web};
 use dotenv::dotenv;
 
 mod api;
@@ -22,7 +22,7 @@ async fn main() -> std::io::Result<()> {
         App::new()
             .wrap(Logger::default())
             .app_data(Actix::query_config())
-            .data(JieBa::init())
+            .app_data(web::Data::new(JieBa::init()))
             .configure(route::health)
             .configure(route::api_v1)
     })
