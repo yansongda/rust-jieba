@@ -22,6 +22,7 @@ async fn main() -> std::io::Result<()> {
         App::new()
             .wrap(Logger::default())
             .app_data(Actix::query_config())
+            .app_data(Actix::json_config())
             .app_data(web::Data::new(JieBa::init()))
             .configure(route::health)
             .configure(route::api_v1)
