@@ -1,11 +1,11 @@
-use actix_web::{get, web, Responder};
+use actix_web::{post, web, Responder};
 use jieba_rs::Jieba;
 
 use crate::model::participle::{Participle, Query};
 use crate::result::{Error, Response};
 
-#[get("/cut")]
-pub async fn cut(query: web::Query<Query>, jieba: web::Data<Jieba>) -> impl Responder {
+#[post("/cut")]
+pub async fn cut(query: web::Json<Query>, jieba: web::Data<Jieba>) -> impl Responder {
     let text = query.text.clone();
 
     if text.is_empty() {
@@ -20,8 +20,8 @@ pub async fn cut(query: web::Query<Query>, jieba: web::Data<Jieba>) -> impl Resp
     }))
 }
 
-#[get("/cut_all")]
-pub async fn cut_all(query: web::Query<Query>, jieba: web::Data<Jieba>) -> impl Responder {
+#[post("/cut_all")]
+pub async fn cut_all(query: web::Json<Query>, jieba: web::Data<Jieba>) -> impl Responder {
     let text = query.text.clone();
 
     if text.is_empty() {

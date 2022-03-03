@@ -19,7 +19,6 @@ pub struct LoggerConfig {
     pub level: String,
 }
 
-#[derive(Copy)]
 pub struct JiebaConfig {
     pub fixed: String,
 }

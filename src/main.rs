@@ -1,4 +1,4 @@
-use actix_web::{App, HttpServer};
+use actix_web::{web, App, HttpServer};
 
 use crate::config::actix::Actix;
 use crate::config::config::Config;
@@ -23,7 +23,8 @@ async fn main() -> std::io::Result<()> {
     HttpServer::new(|| {
         App::new()
             .app_data(Actix::query_config())
-            .data(JieBa::init(config.jieba))
+            .app_data(Actix::json_config())
+            .app_data(web::Data::new(JieBa::init(config.jieba)))
             .configure(route::health)
             .configure(route::api_v1)
     })
