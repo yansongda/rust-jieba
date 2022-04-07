@@ -1,6 +1,11 @@
 use std::env;
 
 use dotenv::dotenv;
+use lazy_static::lazy_static;
+
+lazy_static! {
+    pub static ref CONFIG: Config = Config::init();
+}
 
 pub struct Config {
     pub app: AppConfig,

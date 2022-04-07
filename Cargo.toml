@@ -15,4 +15,4 @@ lazy_static = { version = "~1.4.0" }
 actix-web = { version = "~4.0.1" }
 jieba-rs = { version = "~0.6.6" }
 dotenv = { version = "~0.15.0" }
-uuid = { version = "0.8", features = ["serde", "v5"] }
+uuid = { version = "~0.8.2", features = ["serde", "v5"] }
