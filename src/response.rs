@@ -25,7 +25,7 @@ impl ResponseError for Error {
     fn error_response(&self) -> HttpResponse {
         let (code, message) = ERROR_CODE_MESSAGE
             .get(self)
-            .unwrap_or_else(|| ERROR_CODE_MESSAGE.get(&Error::UnknownError).unwrap());
+            .unwrap_or_else(|| ERROR_CODE_MESSAGE.get(&Error::Unknown).unwrap());
         let response: Response<String> = Response {
             code: *code,
             message: message.to_string(),

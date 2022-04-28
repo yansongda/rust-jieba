@@ -9,10 +9,10 @@ edition = "2021"
 tracing = { version = "~0.1.29" }
 tracing-subscriber = { version = "~0.3.7", features = ["registry", "env-filter"] }
 tracing-bunyan-formatter = { version = "~0.3.2" }
+tracing-actix-web = { version = "~0.5.1" }
+dotenv = { version = "~0.15.0" }
 serde = { version = "~1.0.130", features = ["derive"] }
 serde_json = { version = "~1.0.71" }
 lazy_static = { version = "~1.4.0" }
 actix-web = { version = "~4.0.1" }
 jieba-rs = { version = "~0.6.6" }
-dotenv = { version = "~0.15.0" }
-uuid = { version = "~0.8.2", features = ["serde", "v5"] }

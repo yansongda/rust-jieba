@@ -1,9 +1,11 @@
 use actix_web::{web, App, HttpServer};
+use tracing_actix_web::TracingLogger;
 
 use crate::config::actix::Actix;
-use crate::config::config::CONFIG;
 use crate::config::jieba::JieBa;
 use crate::config::logger::Logger;
+use crate::config::CONFIG;
+use crate::middleware::request_logger_middleware::RequestLogger;
 
 mod api;
 mod config;
@@ -13,13 +15,15 @@ mod model;
 mod response;
 mod result;
 mod route;
+mod service;
 
 #[actix_web::main]
 async fn main() -> std::io::Result<()> {
-    Logger::init();
+    //Logger::init();
 
     HttpServer::new(|| {
         App::new()
+            .wrap(TracingLogger::<RequestLogger>::new())
             .app_data(Actix::query_config())
             .app_data(Actix::json_config())
             .app_data(web::Data::new(JieBa::init()))

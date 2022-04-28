@@ -1,4 +1,4 @@
-use crate::config::config::{JiebaConfig, CONFIG};
+use crate::config::{JiebaConfig, CONFIG};
 use jieba_rs::Jieba;
 
 pub struct JieBa;
@@ -14,10 +14,10 @@ impl JieBa {
     }
 }
 
-fn load_frequency_words(j: &mut Jieba, words: String) -> () {
+fn load_frequency_words(j: &mut Jieba, words: String) {
     tracing::info!("准备加载自定义分词词语");
 
-    for x in words.split(";") {
+    for x in words.split(';') {
         if !x.is_empty() {
             tracing::info!("加载自定义分词词语: {}", x);
             j.add_word(x, None, None);
