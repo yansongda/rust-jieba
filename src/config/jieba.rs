@@ -15,11 +15,11 @@ impl JieBa {
 }
 
 fn load_frequency_words(j: &mut Jieba, words: String) {
-    tracing::info!("准备加载自定义分词词语");
+    log::info!("准备加载自定义分词词语");
 
     for x in words.split(';') {
         if !x.is_empty() {
-            tracing::info!("加载自定义分词词语: {}", x);
+            log::info!("加载自定义分词词语: {}", x);
             j.add_word(x, None, None);
         }
     }

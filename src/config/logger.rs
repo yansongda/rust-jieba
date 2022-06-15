@@ -1,21 +1,13 @@
-use log::LevelFilter;
 use log4rs::append::console::ConsoleAppender;
 use log4rs::config::{Appender, Root};
-use log4rs::encode::pattern::PatternEncoder;
 use log4rs::Config;
-
-use log4rs::Logger as SuperLogger;
+use log4rs::encode::pattern::PatternEncoder;
+use log::LevelFilter;
 
 pub struct Logger;
 
 impl Logger {
-    pub fn init() {
-        let logger = SuperLogger::new(Logger::config());
-        log::set_max_level(logger.max_log_level());
-        log::set_boxed_logger(Box::new(logger))?;
-    }
-
-    fn config() -> Config {
+    pub fn config() -> Config {
         let root = Root::builder().appender("stdout").build(LevelFilter::Info);
 
         let encoder = PatternEncoder::new(
@@ -26,6 +18,6 @@ impl Logger {
             .build();
         let appender = Appender::builder().build("stdout", Box::new(console_append));
 
-        Config::builder().appender(appender).build(root)?
+        Config::builder().appender(appender).build(root).unwrap()
     }
 }

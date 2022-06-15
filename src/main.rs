@@ -17,7 +17,7 @@ mod service;
 
 #[actix_web::main]
 async fn main() -> std::io::Result<()> {
-    Logger::init();
+    log4rs::init_config(Logger::config()).unwrap();
 
     HttpServer::new(|| {
         App::new()
