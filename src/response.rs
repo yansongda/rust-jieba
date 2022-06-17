@@ -1,9 +1,9 @@
-use actix_web::{HttpRequest, HttpResponse, Responder, ResponseError};
 use actix_web::body::BoxBody;
 use actix_web::http::{header, StatusCode};
+use actix_web::{HttpRequest, HttpResponse, Responder, ResponseError};
 use serde::Serialize;
 
-use crate::result::{Error, ERROR_CODE_MESSAGE, Response};
+use crate::result::{Error, Response, ERROR_CODE_MESSAGE};
 
 impl<D: Serialize> Responder for Response<D> {
     type Body = BoxBody;
@@ -25,7 +25,7 @@ impl ResponseError for Error {
     fn error_response(&self) -> HttpResponse {
         let (code, message) = ERROR_CODE_MESSAGE
             .get(self)
-            .unwrap_or_else(|| ERROR_CODE_MESSAGE.get(&Error::UnknownError).unwrap());
+            .unwrap_or_else(|| ERROR_CODE_MESSAGE.get(&Error::Unknown).unwrap());
         let response: Response<String> = Response {
             code: *code,
             message: message.to_string(),

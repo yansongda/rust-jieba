@@ -7,9 +7,9 @@ use serde::{Deserialize, Serialize};
 lazy_static! {
     pub static ref ERROR_CODE_MESSAGE: HashMap<Error, (u16, &'static str)> = HashMap::from([
         // 未知错误
-        (Error::UnknownError, (9999, "未知错误，请联系管理员")),
+        (Error::Unknown, (9999, "未知错误，请联系管理员")),
         // 参数错误
-        (Error::ParamsError, (2000, "参数错误，请确认您的参数是否符合规范")),
+        (Error::Params, (2000, "参数错误，请确认您的参数是否符合规范")),
         // 必要参数不存在
         (Error::MissingParams, (2001, "必要参数不存在，请确认您的参数是否符合规范")),
         // 参数值为空
@@ -26,8 +26,8 @@ pub struct Response<D: Serialize> {
 
 #[derive(PartialEq, Eq, Hash, Debug)]
 pub enum Error {
-    UnknownError,
-    ParamsError,
+    Unknown,
+    Params,
     MissingParams,
     EmptyParams,
 }
